@@ -81,11 +81,53 @@ html {
  */
 body {
   margin: 0;
+  background-color: #c9e5f0;
 }
 
 .site {
   max-width: 980px;
   margin: 0 auto;
+}
+
+.alignwide {
+  margin-left: -100px;
+  margin-right: -100px;
+}
+
+.alignfull {
+  margin-left: calc(-1 * calc(100vw - 980px) / 2);
+  margin-right: calc(-1 * calc(100vw - 980px) / 2);
+}
+
+@media screen and (max-width: 1180px) {
+  .alignwide {
+    margin-left: calc(-1 * calc(100vw - 980px) / 2);
+    margin-right: calc(-1 * calc(100vw - 980px) / 2);
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .alignfull {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .alignwide {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.has-strong-magenta-1-background-color {
+  background-color: #a156b4;
+}
+
+.has-strong-magenta-1-color {
+  color: #a156b4;
+}
+
+.has-light-grayish-magenta-1-color {
+  color: #d0a5db;
 }
 
 /**
@@ -479,9 +521,6 @@ big {
 
 /* Elements
 --------------------------------------------- */
-body {
-  background: #fff;
-}
 
 hr {
   background-color: #ccc;
@@ -503,8 +542,8 @@ ol {
   list-style: decimal;
 }
 
-li > ul,
-li > ol {
+li>ul,
+li>ol {
   margin-bottom: 0;
   margin-left: 1.5em;
 }
@@ -681,8 +720,8 @@ textarea {
   top: 0;
 }
 
-.main-navigation ul ul li:hover > ul,
-.main-navigation ul ul li.focus > ul {
+.main-navigation ul ul li:hover>ul,
+.main-navigation ul ul li.focus>ul {
   display: block;
   left: auto;
 }
@@ -691,8 +730,8 @@ textarea {
   width: 200px;
 }
 
-.main-navigation ul li:hover > ul,
-.main-navigation ul li.focus > ul {
+.main-navigation ul li:hover>ul,
+.main-navigation ul li.focus>ul {
   left: auto;
 }
 
