@@ -85,9 +85,36 @@ function blocks_theme_setup() {
 		)
 	);
 
-			
+    add_theme_support( 'editor-font-sizes', array(
+		array(
+			'name' => esc_attr__( 'Small', 'themeLangDomain' ),
+			'size' => 12,
+			'slug' => 'small'
+		),
+		array(
+			'name' => esc_attr__( 'Regular', 'themeLangDomain' ),
+			'size' => 16,
+			'slug' => 'regular'
+		),
+		array(
+			'name' => esc_attr__( 'Large', 'themeLangDomain' ),
+			'size' => 36,
+			'slug' => 'large'
+		),
+		array(
+			'name' => esc_attr__( 'Hugefff', 'themeLangDomain' ),
+			'size' => 50,
+			'slug' => 'hugefff'
+		)
+	) );
 
-	
+	add_theme_support( 'disable-custom-font-sizes' );
+
+	add_theme_support( 'custom-line-height' );
+
+	add_theme_support( 'custom-spacing' );
+
+	add_theme_support( 'custom-units', "px", 'rem', 'em' );
 
 	/*
 		* Make theme available for translation.

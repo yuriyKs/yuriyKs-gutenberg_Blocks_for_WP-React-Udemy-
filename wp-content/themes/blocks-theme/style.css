@@ -130,6 +130,19 @@ body {
   color: #d0a5db;
 }
 
+.has-small-font-size {
+  font-size: 12px;
+}
+.has-regular-font-size {
+  font-size: 16px;
+}
+.has-large-font-size {
+  font-size: 36px;
+}
+.has-hugefff-font-size {
+  font-size: 50px;
+}
+
 /**
  * Render the `main` element consistently in IE.
  */
@@ -542,8 +555,8 @@ ol {
   list-style: decimal;
 }
 
-li>ul,
-li>ol {
+li > ul,
+li > ol {
   margin-bottom: 0;
   margin-left: 1.5em;
 }
@@ -720,8 +733,8 @@ textarea {
   top: 0;
 }
 
-.main-navigation ul ul li:hover>ul,
-.main-navigation ul ul li.focus>ul {
+.main-navigation ul ul li:hover > ul,
+.main-navigation ul ul li.focus > ul {
   display: block;
   left: auto;
 }
@@ -730,8 +743,8 @@ textarea {
   width: 200px;
 }
 
-.main-navigation ul li:hover>ul,
-.main-navigation ul li.focus>ul {
+.main-navigation ul li:hover > ul,
+.main-navigation ul li.focus > ul {
   left: auto;
 }
 
