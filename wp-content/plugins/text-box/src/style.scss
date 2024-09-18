@@ -5,8 +5,18 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-boilerplate {
+.wp-block-blocks-course-text-box {
 	background-color: #21759b;
 	color: #fff;
 	padding: 2px;
+
+	&.text-alignment-right {
+		text-align: right;
+	}
+	&.text-alignment-center {
+		text-align: center;
+	}
+	&.text-alignment-left {
+		text-align: left;
+	}
 }
