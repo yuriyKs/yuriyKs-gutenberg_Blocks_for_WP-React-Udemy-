@@ -3,14 +3,17 @@ import {
 	useBlockProps,
 	RichText,
 	BlockControls,
+	InspectorControls,
 	AlignmentToolbar,
 } from '@wordpress/block-editor';
-import { useState } from '@wordpress/element';
 import {
-	ToolbarGroup,
-	ToolbarButton,
-	DropdownMenu,
-	ToolbarDropdownMenu,
+	PanelBody,
+	TextControl,
+	TextareaControl,
+	ToggleControl,
+	AnglePickerControl,
+	ColorPicker,
+	ColorPalette,
 } from '@wordpress/components';
 import './editor.scss';
 
@@ -24,6 +27,43 @@ export default function Edit({ attributes, setAttributes }) {
 	};
 	return (
 		<>
+			<InspectorControls>
+				<PanelBody
+					title={__('Color Settings', 'text-box')}
+					icon="admin-appearance"
+					initialOpen
+				>
+					<TextControl
+						label="Input labelqqq"
+						value={text}
+						onChange={onChangeText}
+						help="help text"
+					/>
+					<TextareaControl
+						label="Input Text qqq"
+						value={text}
+						onChange={onChangeText}
+						help="help text"
+					/>
+					<ToggleControl
+						label="Togggle Controll"
+						checked={true}
+						onChange={(v) => console.log(v)}
+					/>
+					<AnglePickerControl />
+					<ColorPicker
+						color={'F03'}
+						onChange={(v) => console.log(v)}
+					/>
+					<ColorPalette
+						colors={[
+							{ name: 'red', color: '#F00' },
+							{ name: 'black', color: '#000' },
+						]}
+						onChange={(v) => console.log(v)}
+					/>
+				</PanelBody>
+			</InspectorControls>
 			<BlockControls group="inline">
 				<AlignmentToolbar
 					value={alignment}
