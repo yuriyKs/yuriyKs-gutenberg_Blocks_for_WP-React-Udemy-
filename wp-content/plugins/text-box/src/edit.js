@@ -5,16 +5,9 @@ import {
 	BlockControls,
 	InspectorControls,
 	AlignmentToolbar,
+	PanelColorSettings,
+	ContrastChecker,
 } from '@wordpress/block-editor';
-import {
-	PanelBody,
-	TextControl,
-	TextareaControl,
-	ToggleControl,
-	AnglePickerControl,
-	ColorPicker,
-	ColorPalette,
-} from '@wordpress/components';
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes }) {
@@ -37,20 +30,29 @@ export default function Edit({ attributes, setAttributes }) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody
+				<PanelColorSettings
 					title={__('Color Settings', 'text-box')}
 					icon="admin-appearance"
 					initialOpen
+					disableCustomColors={false}
+					colorSettings={[
+						{
+							value: backgroundColor,
+							onChange: onBackgroundColorChange,
+							label: __('Background Color', 'text-box'),
+						},
+						{
+							value: textColor,
+							onChange: onTextColorChange,
+							label: __('Text Color', 'text-box'),
+						},
+					]}
 				>
-					<ColorPalette
-						colors={[
-							{ name: 'red', color: '#F00' },
-							{ name: 'black', color: '#000' },
-						]}
-						value={backgroundColor}
-						onChange={onBackgroundColorChange}
+					<ContrastChecker
+						textColor={textColor}
+						backgroundColor={backgroundColor}
 					/>
-				</PanelBody>
+				</PanelColorSettings>
 			</InspectorControls>
 			<BlockControls group="inline">
 				<AlignmentToolbar
@@ -63,6 +65,7 @@ export default function Edit({ attributes, setAttributes }) {
 					className: `text-alignment-${alignment}`,
 					style: {
 						backgroundColor,
+						color: textColor,
 					},
 				})}
 				onChange={onChangeText}

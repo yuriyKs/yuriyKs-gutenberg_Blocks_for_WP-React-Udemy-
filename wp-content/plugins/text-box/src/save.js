@@ -3,12 +3,11 @@ import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 export default function save({ attributes }) {
 	const { text, alignment, backgroundColor, textColor } = attributes;
-	console.log('alignment', alignment);
 	return (
 		<RichText.Content
 			{...useBlockProps.save({
 				className: `text-alignment-${alignment}`,
-				style: { backgroundColor },
+				style: { backgroundColor, color: textColor },
 			})}
 			tagName="h4"
 			value={text}
