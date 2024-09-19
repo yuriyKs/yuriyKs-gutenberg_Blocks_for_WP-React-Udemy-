@@ -18,13 +18,22 @@ import {
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { text, alignment } = attributes;
+	const { text, alignment, backgroundColor, textColor } = attributes;
 	const onChangeText = (nextText) => {
 		setAttributes({ text: nextText });
 	};
 	const onChangeAlignment = (nextAlignment) => {
 		setAttributes({ alignment: nextAlignment });
 	};
+
+	const onBackgroundColorChange = (newBackgroundcolor) => {
+		setAttributes({ backgroundColor: newBackgroundcolor });
+	};
+
+	const onTextColorChange = (newTextcolor) => {
+		setAttributes({ textColor: newTextcolor });
+	};
+
 	return (
 		<>
 			<InspectorControls>
@@ -33,34 +42,13 @@ export default function Edit({ attributes, setAttributes }) {
 					icon="admin-appearance"
 					initialOpen
 				>
-					<TextControl
-						label="Input labelqqq"
-						value={text}
-						onChange={onChangeText}
-						help="help text"
-					/>
-					<TextareaControl
-						label="Input Text qqq"
-						value={text}
-						onChange={onChangeText}
-						help="help text"
-					/>
-					<ToggleControl
-						label="Togggle Controll"
-						checked={true}
-						onChange={(v) => console.log(v)}
-					/>
-					<AnglePickerControl />
-					<ColorPicker
-						color={'F03'}
-						onChange={(v) => console.log(v)}
-					/>
 					<ColorPalette
 						colors={[
 							{ name: 'red', color: '#F00' },
 							{ name: 'black', color: '#000' },
 						]}
-						onChange={(v) => console.log(v)}
+						value={backgroundColor}
+						onChange={onBackgroundColorChange}
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -73,6 +61,9 @@ export default function Edit({ attributes, setAttributes }) {
 			<RichText
 				{...useBlockProps({
 					className: `text-alignment-${alignment}`,
+					style: {
+						backgroundColor,
+					},
 				})}
 				onChange={onChangeText}
 				value={text}
