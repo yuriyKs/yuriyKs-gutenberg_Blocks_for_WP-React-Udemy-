@@ -52,7 +52,7 @@ function blocks_theme_setup() {
 			),
 	) );
 
-	add_theme_support( 'disable-custom-colors' );
+	// add_theme_support( 'disable-custom-colors' );
 	
 	add_theme_support(
 		'editor-gradient-presets',
