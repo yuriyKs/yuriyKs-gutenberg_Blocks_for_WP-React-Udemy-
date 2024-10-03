@@ -6,13 +6,13 @@
  */
 
 .wp-block-blocks-course-text-box {
-	&.text-alignment-right {
+	&.text-box-align-right {
 		text-align: right;
 	}
-	&.text-alignment-center {
+	&.text-box-align-center {
 		text-align: center;
 	}
-	&.text-alignment-left {
+	&.text-box-align-left {
 		text-align: left;
 	}
 }

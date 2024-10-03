@@ -7,7 +7,12 @@
 	"description": "A box of twxt",
 	"keywords": ["text", "paragraph", "box"],
 	"supports": {
-		"html": false
+		"html": false,
+		"color": {
+			"background": true,
+			"text": true,
+			"gradients": true
+		}
 	},
 	"textdomain": "text-box",
 	"editorScript": "file:./build/index.js",
@@ -27,13 +32,12 @@
 			"type": "string"
 		},
 		"textColor": {
-			"type": "string"
+			"type": "string",
+			"default": "very-dark-gray2"
 		},
-		"customBackgroundColor": {
-			"type": "string"
-		},
-		"customTextColor": {
-			"type": "string"
+		"gradient": {
+			"type": "string",
+			"default": "vivid-cyan-blue-to-vivid-purple"
 		}
 	}
 }
