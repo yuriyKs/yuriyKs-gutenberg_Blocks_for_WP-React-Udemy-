@@ -4,12 +4,22 @@ import {
 	RichText,
 	BlockControls,
 	AlignmentToolbar,
+	InspectorControls,
 } from '@wordpress/block-editor';
+import {
+	__experimentalBoxControl as BoxControl,
+	PanelBody,
+	RadioControl,
+	RangeControl,
+} from '@wordpress/components';
+import classnames from 'classnames';
 import './editor.scss';
 
+const { __Visualizer: BoxControlVisualizer } = BoxControl;
+
 export default function Edit(props) {
-	const { attributes, setAttributes } = props; // setTextColor & setBackgroundColor получаем из того что export default withColors({ backgroundColor: 'backgroundColor', textColor: 'color', })(Edit); в консоли видно как добавляется аттрибуты к пропсу
-	const { text, alignment } = attributes;
+	const { attributes, setAttributes } = props;
+	const { text, alignment, style, shadow, shadowOpacity } = attributes;
 
 	const onChangeText = (nextText) => {
 		setAttributes({ text: nextText });
@@ -18,9 +28,45 @@ export default function Edit(props) {
 		setAttributes({ alignment: nextAlignment });
 	};
 
+	const toggleShadow = () => {
+		setAttributes({ shadow: !shadow });
+	};
+
+	const onChangeShadowOpacity = (newShadowOpacity) => {
+		setAttributes({ shadowOpacity: newShadowOpacity });
+	};
+
+	const classes = classnames(`text-box-align-${alignment}`, {
+		'has-shadow': shadow,
+		[`shadow-opacity-${shadowOpacity}`]: shadow && shadowOpacity,
+	});
+
 	return (
 		<>
-			<BlockControls group="inline">
+			<InspectorControls>
+				{shadow && (
+					<PanelBody title={__('shadow SETTINGS', 'text-box')}>
+						<RangeControl
+							label={__('shadow OPACITY', 'text-box')}
+							value={shadowOpacity}
+							min={10}
+							max={40}
+							step={10}
+							onChange={onChangeShadowOpacity}
+						></RangeControl>
+					</PanelBody>
+				)}
+			</InspectorControls>
+			<BlockControls
+				controls={[
+					{
+						icon: 'admin-page',
+						title: __('ShAdOw', 'text-box'),
+						onClick: toggleShadow,
+						isActive: shadow,
+					},
+				]}
+			>
 				<AlignmentToolbar
 					value={alignment}
 					onChange={(val) => onChangeAlignment(val)}
@@ -28,7 +74,7 @@ export default function Edit(props) {
 			</BlockControls>
 			<RichText
 				{...useBlockProps({
-					className: `text-box-align-${alignment}`,
+					className: classes,
 				})}
 				onChange={onChangeText}
 				value={text}
