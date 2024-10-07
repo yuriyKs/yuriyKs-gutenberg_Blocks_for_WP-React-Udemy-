@@ -24,6 +24,13 @@
 			"label": "Rounded"
 		}
 	],
+	"example": {
+		"attributes": {
+			"text": "This is SOME text",
+			"gradient": "vivid-cyan-blue-to-vivid-purple",
+			"shadow": true
+		}
+	},
 	"textdomain": "text-box",
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",
