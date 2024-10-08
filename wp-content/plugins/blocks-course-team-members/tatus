@@ -1,0 +1,65 @@
+[33mcommit 298c2cc7e0946ff0f2a443daa4ec4cfebe1b4c56[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31mupstream/main[m[33m, [m[1;31mupstream/HEAD[m[33m)[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Mon Dec 20 10:23:50 2021 +0200
+
+    Packages Update 20 Dec 21
+
+[33mcommit 5d6716d20d77c7e8db4cd9a53cc5bd99d7dc8efc[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Fri Nov 19 12:06:41 2021 +0200
+
+    removed comments
+
+[33mcommit e0c85544f91a1afef8a1edcdf39b5eef9471fae5[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Fri Nov 19 11:58:24 2021 +0200
+
+    updated eslint config and eslint-config-prettier
+
+[33mcommit 05ecc7ad954c1773cae4231d6666729c8b642853[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Fri Nov 19 10:18:18 2021 +0200
+
+    Updated @wordpress packages
+
+[33mcommit 4b422aeb86f05ec0a82352fb7ece345cc596a8af[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Tue Nov 2 11:09:44 2021 +0200
+
+    Updated @wordpress packages
+
+[33mcommit ec6f0005dd6113be98ac447ec35c104072cef1f9[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Sun Jun 27 12:18:10 2021 +0200
+
+    modified vscode settings
+
+[33mcommit 4b2b6c27c3994eb3fc29756e1af648caf8e74cef[m[33m ([m[1;31mupstream/pre-commit-hook-with-husky[m[33m)[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Sat Jun 26 17:01:27 2021 +0200
+
+    test
+
+[33mcommit 070d469c8c74b8ba5d79c507c495051e0f45fca2[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Sat Jun 26 16:53:28 2021 +0200
+
+    test
+
+[33mcommit 43dd3acbd8a5a122b9888eb7e7e5dd59c366c4ba[m[33m ([m[1;31mupstream/configuring-stylelint-for-scss[m[33m)[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Sat Jun 26 16:34:39 2021 +0200
+
+    stylelint config
+
+[33mcommit 1cbf40ec1c4fe9edcdb54d1b62fa5287532bd1fc[m[33m ([m[1;31mupstream/configuring-eslint-and-prettier-for-js[m[33m)[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Sat Jun 26 16:32:59 2021 +0200
+
+    eslint config
+
+[33mcommit 5d38d7f1cb7e76b10ea9e2903d60cfc5bbdd1522[m[33m ([m[1;31mupstream/generating-a-block-using-wordpress-create-block[m[33m)[m
+Author: Ali Alaa <hello@alialaa.com>
+Date:   Sat Jun 26 12:51:18 2021 +0200
+
+    Generated a boilerplate block
