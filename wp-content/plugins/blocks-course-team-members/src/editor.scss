@@ -4,6 +4,54 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-boilerplate {
-	border: 1px dotted #f03;
+.wp-block-blocks-course-team-members {
+	display: flex;
+
+	@for $i from 1 through 6 {
+		&.has-#{$i}-columns {
+			.block-editor-block-list__layout > .block-editor-block-list__block {
+				width: calc(100% / #{$i} - 20px);
+			}
+			.block-list-appender {
+				position: unset;
+				align-self: stretch;
+				width: calc(100% / #{$i} - 20px);
+				border: 1px dashed;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 70px;
+				margin-left: 10px;
+			}
+		}
+	}
+
+	.block-editor-inner-blocks {
+		width: 100%;
+	}
+
+	.block-editor-block-list__layout {
+		display: flex;
+		flex-wrap: wrap;
+		margin-left: -10px;
+		margin-right: -10px;
+
+		[data-type='blocks-course/team-member'] {
+			max-width: none;
+			margin: 10px;
+
+			h4 {
+				color: #222;
+				font-size: 22px;
+				margin: 0;
+				font-weight: bold;
+			}
+			p {
+				color: #565656;
+				font-size: 16px;
+				font-weight: 300;
+				margin-bottom: 5px;
+			}
+		}
+	}
 }

@@ -33,6 +33,7 @@ export default function Edit({ attributes, setAttributes }) {
 			</InspectorControls>
 			<InnerBlocks
 				allowedBlocks={['core/image', 'blocks-course/team-member']}
+				orientation="horizontal"
 				template={[
 					// [
 					// 	'blocks-course/team-member',
