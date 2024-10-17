@@ -40,6 +40,20 @@
 			max-width: none;
 			margin: 10px;
 
+			.wp-block-blocks-course-team-member-img {
+				position: relative;
+
+				&.is-loading img {
+					opacity: 0.3;
+				}
+
+				.components-spinner {
+					position: absolute;
+					inset: 0;
+					margin: auto;
+				}
+			}
+
 			h4 {
 				color: #222;
 				font-size: 22px;
