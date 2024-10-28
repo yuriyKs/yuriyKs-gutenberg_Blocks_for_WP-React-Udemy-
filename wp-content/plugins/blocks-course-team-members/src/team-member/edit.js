@@ -17,6 +17,8 @@ import {
 	PanelBody,
 	TextareaControl,
 	SelectControl,
+	Icon,
+	Tooltip,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { usePrevious } from '@wordpress/compose';
@@ -26,10 +28,14 @@ function Edit({
 	setAttributes,
 	noticeOperations,
 	noticeUI,
+	isSelected,
 	...props
 }) {
-	const { name, bio, url, alt, id } = attributes;
+	const { name, bio, url, alt, id, socialLinks } = attributes;
 	const [blobURL, setBlobURL] = useState();
+	const [selectedLink, setSelectedLink] = useState();
+
+	const prevIsSelected = usePrevious(isSelected);
 
 	const titleRef = useRef();
 
@@ -128,6 +134,12 @@ function Edit({
 		titleRef.current.focus();
 	}, [url]);
 
+	useEffect(() => {
+		if (prevIsSelected && !isSelected) {
+			setSelectedLink();
+		}
+	}, [isSelected, prevIsSelected]);
+
 	return (
 		<>
 			<InspectorControls>
@@ -215,6 +227,48 @@ function Edit({
 					onChange={onChangeBio}
 					value={bio}
 				/>
+				<div className="wp-block-blocks-course-team-member-social-links">
+					<ul>
+						{socialLinks.map((item, index) => {
+							return (
+								<li
+									key={index}
+									className={
+										selectedLink === index
+											? 'is-selected'
+											: null
+									}
+								>
+									<button
+										ario-label={__(
+											'Edit SoCiAl link',
+											'team-member'
+										)}
+										onClick={() => setSelectedLink(index)}
+									>
+										<Icon icon={item.icon} />
+									</button>
+								</li>
+							);
+						})}
+						{isSelected && (
+							<li className="wp-block-blocks-course-team-member-social-links-add-icon-li">
+								<Tooltip
+									text={__('add SoCiAl links', 'team-member')}
+								>
+									<button
+										ario-label={__(
+											'add SoCiAl links',
+											'team-member'
+										)}
+									>
+										<Icon icon="plus" />
+									</button>
+								</Tooltip>
+							</li>
+						)}
+					</ul>
+				</div>
 			</div>
 		</>
 	);
