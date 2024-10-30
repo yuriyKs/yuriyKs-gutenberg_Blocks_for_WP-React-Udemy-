@@ -35,5 +35,41 @@
 			font-weight: 300;
 			margin-bottom: 5px;
 		}
+
+		.wp-block-blocks-course-team-member-social-links {
+			ul {
+				list-style: none;
+				padding: 0;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 5px;
+				margin: 15px 0 0;
+
+				span.dashicon {
+					color: #4e4e4e;
+				}
+
+				a {
+					text-decoration: none;
+				}
+
+				li {
+					line-height: 1;
+
+					&.is-selected {
+						outline: 2px solid rgb(208, 40, 227);
+					}
+				}
+
+				button {
+					background-color: transparent;
+
+					padding: 0;
+					cursor: pointer;
+					line-height: 1;
+				}
+			}
+		}
 	}
 }

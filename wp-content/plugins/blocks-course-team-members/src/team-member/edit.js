@@ -112,6 +112,13 @@ function Edit({
 		});
 	};
 
+	const addnewSocialItem = () => {
+		setAttributes({
+			socialLinks: [...socialLinks, { icon: 'wordpress', link: '' }],
+		});
+		setSelectedLink(socialLinks.length);
+	};
+
 	useEffect(() => {
 		if (!id && isBlobURL(url)) {
 			setAttributes({
@@ -261,6 +268,7 @@ function Edit({
 											'add SoCiAl links',
 											'team-member'
 										)}
+										onClick={addnewSocialItem}
 									>
 										<Icon icon="plus" />
 									</button>
