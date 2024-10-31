@@ -9,6 +9,8 @@ import {
 	store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
+import { usePrevious } from '@wordpress/compose';
 import { isBlobURL, revokeBlobURL } from '@wordpress/blob';
 import {
 	Spinner,
@@ -22,8 +24,17 @@ import {
 	TextControl,
 	Button,
 } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { usePrevious } from '@wordpress/compose';
+import {
+	DndContext,
+	useSensor,
+	useSensors,
+	PointerSensor,
+} from '@dnd-kit/core';
+import {
+	SortableContext,
+	verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import SortableItem from './sortable-item';
 
 function Edit({
 	attributes,
@@ -31,13 +42,15 @@ function Edit({
 	noticeOperations,
 	noticeUI,
 	isSelected,
-	...props
 }) {
 	const { name, bio, url, alt, id, socialLinks } = attributes;
 	const [blobURL, setBlobURL] = useState();
 	const [selectedLink, setSelectedLink] = useState();
 
+	const prevURL = usePrevious(url);
 	const prevIsSelected = usePrevious(isSelected);
+
+	const sensors = useSensors(useSensor(PointerSensor));
 
 	const titleRef = useRef();
 
@@ -55,7 +68,6 @@ function Edit({
 
 	const getImageSizeOptions = () => {
 		if (!imageObject) return [];
-
 		const options = [];
 		const sizes = imageObject.media_details.sizes;
 		for (const key in sizes) {
@@ -68,7 +80,6 @@ function Edit({
 				});
 			}
 		}
-
 		return options;
 	};
 
@@ -78,13 +89,9 @@ function Edit({
 	const onChangeBio = (newBio) => {
 		setAttributes({ bio: newBio });
 	};
-
 	const onChangeAlt = (newAlt) => {
-		setAttributes({
-			alt: newAlt,
-		});
+		setAttributes({ alt: newAlt });
 	};
-
 	const onSelectImage = (image) => {
 		if (!image || !image.url) {
 			setAttributes({ url: undefined, id: undefined, alt: '' });
@@ -92,15 +99,16 @@ function Edit({
 		}
 		setAttributes({ url: image.url, id: image.id, alt: image.alt });
 	};
-
-	const onSelectImageURL = (newUrl) => {
-		setAttributes({ url: newUrl, id: undefined, alt: undefined });
+	const onSelectURL = (newURL) => {
+		setAttributes({
+			url: newURL,
+			id: undefined,
+			alt: '',
+		});
 	};
-
 	const onChangeImageSize = (newURL) => {
 		setAttributes({ url: newURL });
 	};
-
 	const onUploadError = (message) => {
 		noticeOperations.removeAllNotices();
 		noticeOperations.createErrorNotice(message);
@@ -114,7 +122,7 @@ function Edit({
 		});
 	};
 
-	const addnewSocialItem = () => {
+	const addNewSocialItem = () => {
 		setAttributes({
 			socialLinks: [...socialLinks, { icon: 'wordpress', link: '' }],
 		});
@@ -134,7 +142,11 @@ function Edit({
 				...socialLinks.slice(selectedLink + 1),
 			],
 		});
-		setSelectedLink(undefined);
+		setSelectedLink();
+	};
+
+	const handleDragEnd = (event) => {
+		console.log(event);
 	};
 
 	useEffect(() => {
@@ -156,8 +168,10 @@ function Edit({
 	}, [url]);
 
 	useEffect(() => {
-		titleRef.current.focus();
-	}, [url]);
+		if (url && !prevURL) {
+			titleRef.current.focus();
+		}
+	}, [url, prevURL]);
 
 	useEffect(() => {
 		if (prevIsSelected && !isSelected) {
@@ -168,52 +182,42 @@ function Edit({
 	return (
 		<>
 			<InspectorControls>
-				{id && (
-					<SelectControl
-						label={__('ImaGe Size', 'team-member')}
-						// options={[
-						// 	{
-						// 		label: 'SiZe 1',
-						// 		value: 'ValUe 1',
-						// 	},
-						// 	{
-						// 		label: 'SiZe 2',
-						// 		value: 'ValUe 2',
-						// 	},
-						// ]}
-						options={getImageSizeOptions()}
-						value={url}
-						onChange={onChangeImageSize}
-					/>
-				)}
-				{url && !isBlobURL(url) && (
-					<PanelBody title={__('Image Settings', 'team-member')}>
+				<PanelBody title={__('Image Settings', 'team-members')}>
+					{id && (
+						<SelectControl
+							label={__('Image Size', 'team-members')}
+							options={getImageSizeOptions()}
+							value={url}
+							onChange={onChangeImageSize}
+						/>
+					)}
+					{url && !isBlobURL(url) && (
 						<TextareaControl
-							label={__('Alt Text', 'team-member')}
+							label={__('Alt Text', 'team-members')}
 							value={alt}
 							onChange={onChangeAlt}
 							help={__(
-								'Alternative Text for image',
-								'team-member'
+								"Alternative text describes your image to people can't see it. Add a short description with its key details.",
+								'team-members'
 							)}
 						/>
-					</PanelBody>
-				)}
+					)}
+				</PanelBody>
 			</InspectorControls>
 			{url && (
 				<BlockControls group="inline">
 					<MediaReplaceFlow
+						name={__('Replace Image', 'team-members')}
 						onSelect={onSelectImage}
-						onSelectURL={onSelectImageURL}
+						onSelectURL={onSelectURL}
 						onError={onUploadError}
 						accept="image/*"
 						allowedTypes={['image']}
 						mediaId={id}
 						mediaURL={url}
-						name={__('Replace Image', 'team-member')}
 					/>
 					<ToolbarButton onClick={removeImage}>
-						{__('Remove Image', 'team-member')}
+						{__('Remove Image', 'team-members')}
 					</ToolbarButton>
 				</BlockControls>
 			)}
@@ -228,11 +232,10 @@ function Edit({
 						{isBlobURL(url) && <Spinner />}
 					</div>
 				)}
-
 				<MediaPlaceholder
 					icon="admin-users"
 					onSelect={onSelectImage}
-					onSelectURL={onSelectImageURL}
+					onSelectURL={onSelectURL}
 					onError={onUploadError}
 					accept="image/*"
 					allowedTypes={['image']}
@@ -241,19 +244,39 @@ function Edit({
 				/>
 				<RichText
 					ref={titleRef}
-					placeholder={__('MeMbeR NAME', 'team-member')}
+					placeholder={__('Member Name', 'team-member')}
 					tagName="h4"
 					onChange={onChangeName}
 					value={name}
+					allowedFormats={[]}
 				/>
 				<RichText
-					placeholder={__('MeMbeR Bio', 'team-member')}
+					placeholder={__('Member Bio', 'team-member')}
 					tagName="p"
 					onChange={onChangeBio}
 					value={bio}
+					allowedFormats={[]}
 				/>
+
 				<div className="wp-block-blocks-course-team-member-social-links">
 					<ul>
+						<DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+							<SortableContext
+								items={socialLinks.map(
+									(item) => `${item.icon}-${item.link}`
+								)}
+								strategy={verticalListSortingStrategy}
+							>
+								{socialLinks.map((item) => {
+									return (
+										<SortableItem
+											key={`${item.icon}-${item.link}`}
+											id={`${item.icon}-${item.link}`}
+										/>
+									);
+								})}
+							</SortableContext>
+						</DndContext>
 						{socialLinks.map((item, index) => {
 							return (
 								<li
@@ -265,9 +288,9 @@ function Edit({
 									}
 								>
 									<button
-										ario-label={__(
-											'Edit SoCiAl link',
-											'team-member'
+										aria-label={__(
+											'Edit Social Link',
+											'team-members'
 										)}
 										onClick={() => setSelectedLink(index)}
 									>
@@ -277,16 +300,16 @@ function Edit({
 							);
 						})}
 						{isSelected && (
-							<li className="wp-block-blocks-course-team-member-social-links-add-icon-li">
+							<li className="wp-block-blocks-course-team-member-add-icon-li">
 								<Tooltip
-									text={__('add SoCiAl links', 'team-member')}
+									text={__('Add Social Link', 'team-members')}
 								>
 									<button
-										ario-label={__(
-											'add SoCiAl links',
-											'team-member'
+										aria-label={__(
+											'Add Social Link',
+											'team-members'
 										)}
-										onClick={addnewSocialItem}
+										onClick={addNewSocialItem}
 									>
 										<Icon icon="plus" />
 									</button>
@@ -298,14 +321,14 @@ function Edit({
 				{selectedLink !== undefined && (
 					<div className="wp-block-blocks-course-team-member-link-form">
 						<TextControl
-							label={__('Icon', 'team-member')}
+							label={__('Icon', 'text-members')}
 							value={socialLinks[selectedLink].icon}
 							onChange={(icon) => {
 								updateSocialItem('icon', icon);
 							}}
 						/>
 						<TextControl
-							label={__('URL', 'team-member')}
+							label={__('URL', 'text-members')}
 							value={socialLinks[selectedLink].link}
 							onChange={(link) => {
 								updateSocialItem('link', link);
@@ -313,7 +336,7 @@ function Edit({
 						/>
 						<br />
 						<Button isDestructive onClick={removeSocialItem}>
-							{__('remoVe link', 'team-member')}
+							{__('Remove Link', 'text-members')}
 						</Button>
 					</div>
 				)}
