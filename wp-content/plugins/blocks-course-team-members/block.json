@@ -1,0 +1,23 @@
+{
+	"apiVersion": 2,
+	"name": "blocks-course/team-members",
+	"title": "TeaM Members",
+	"category": "media",
+	"icon": "groups",
+	"description": "A team Members Grid.",
+	"keywords": ["Team", "Members", "Grid"],
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"textdomain": "team-members",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css",
+	"attributes": {
+		"columns": {
+			"type": "number",
+			"default": 2
+		}
+	}
+}

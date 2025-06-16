@@ -1,0 +1,75 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-blocks-course-team-members {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+
+	@for $i from 1 through 6 {
+		&.has-#{$i}-columns {
+			.wp-block-blocks-course-team-member {
+				width: calc(100% / #{$i} - 20px);
+			}
+		}
+	}
+
+	.wp-block-blocks-course-team-member {
+		img {
+			margin-bottom: 20px;
+		}
+
+		h4 {
+			color: #222;
+			font-size: 22px;
+			margin: 0;
+			font-weight: bold;
+		}
+		p {
+			color: #565656;
+			font-size: 16px;
+			font-weight: 300;
+			margin-bottom: 5px;
+		}
+
+		.wp-block-blocks-course-team-member-social-links {
+			ul {
+				list-style: none;
+				padding: 0;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 5px;
+				margin: 15px 0 0;
+
+				span.dashicon {
+					color: #4e4e4e;
+				}
+
+				a {
+					text-decoration: none;
+				}
+
+				li {
+					line-height: 1;
+
+					&.is-selected {
+						outline: 2px solid rgb(208, 40, 227);
+					}
+				}
+
+				button {
+					background-color: transparent;
+
+					padding: 0;
+					cursor: pointer;
+					line-height: 1;
+				}
+			}
+		}
+	}
+}
